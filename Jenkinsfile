@@ -10,7 +10,7 @@ pipeline
        stage('GetCode')
        {
             steps{
-                git 'https://github.com/ravdy/javaloginapp.git'
+                git 'https://github.com/ShivamMudotia/sample-java.git'
             }
        }        
        
