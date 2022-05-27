@@ -7,13 +7,6 @@ pipeline
     
     stages
     {
-       stage('GetCode')
-       {
-            steps{
-                git 'https://github.com/ShivamMudotia/sample-java.git'
-            }
-       }        
-       
        stage('Build')
        {
             steps{
