@@ -37,7 +37,7 @@ pipeline
 #                  withMaven(mavenSettingsConfig: 'artifactory-maven') {
 #                  sh 'mvn deploy:deploy-file -Durl=http://artifactory-ent-devops-1930692006.ap-south-1.elb.amazonaws.com/artifactory/valaxy -DrepositoryId=valaxy -Dfile=target/valaxy-2.0-RELEASE.war'
 
-              }
+#              }
           }
        }
    }
