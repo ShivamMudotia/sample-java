@@ -10,8 +10,12 @@ pipeline
        stage('Build')
        {
             steps{
-                sh 'mvn clean package'
-              }
+               withMaven(mavenSettingsConfig: 'artifactory-maven') {
+               sh "mvn clean verify"
+               }
+
+            sh 'mvn clean package'
+            }
        }
         
        stage('SonarQube analysis') 
