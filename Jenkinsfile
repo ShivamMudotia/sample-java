@@ -10,10 +10,6 @@ pipeline
        stage('Build')
        {
             steps{
-               withMaven(mavenSettingsConfig: 'artifactory-maven') {
-               sh "mvn clean verify"
-               }
-
             sh 'mvn clean package'
             }
        }
