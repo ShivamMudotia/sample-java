@@ -12,8 +12,8 @@ pipeline
             steps
             {
               withMaven(mavenSettingsConfig: 'artifactory-maven') {
-                  sh "mvn -X clean verify"
-                  sh 'mvn -X clean package'
+                  sh "mvn clean verify"
+                  sh 'mvn clean package'
                 }
             }    
        }
