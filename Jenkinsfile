@@ -7,6 +7,7 @@ pipeline
     
     stages
     {
+
        stage('Build')
        {
             steps
@@ -33,20 +34,22 @@ pipeline
        {
           steps
           {
-          rtUpload (
-    serverId: 'artifactory',
-    spec: '''{
-          "files": [
-            {
-              "pattern": "*valaxy*",
-              "target": "valaxy/"
-            }
-         ]
-    }''',
+            rtUpload (
+               serverId: 'artifactory',
+               spec: '''{
+                  "files": [
+                  {
+                    "pattern": "*valaxy*.war",
+                    "target": "valaxy/"
+                  }
+                 ]
+               }''',
  
-)
-
-          }
+            )
+         }
        }
+
+
    }
+
 }
