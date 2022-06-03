@@ -39,8 +39,8 @@ pipeline
                spec: '''{
                   "files": [
                   {
-                    "pattern": "*valaxy*.war",
-                    "target": "valaxy/"
+                    "pattern": "*.war",
+                    "target": "sonar-artifactory-sample/"
                   }
                  ]
                }''',
