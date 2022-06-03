@@ -24,7 +24,7 @@ pipeline
           steps
           {
               withSonarQubeEnv('sonarqube') { 
-              sh "mvn sonar:sonar -Dproject.settings=./sonar-project.properties"
+              sh "mvn sonar:sonar"
               }
           }
        }
