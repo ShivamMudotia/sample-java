@@ -33,7 +33,19 @@ pipeline
        {
           steps
           {
-                  sh 'curl -uadmin:AP4jna4unj3rj6cU4sY1bxQ3Hanuwjc1wj8S22 -T target/valaxy-2.0-RELEASE.war "http://artifactory-ent-devops-1930692006.ap-south-1.elb.amazonaws.com/artifactory/valaxy/valaxy-2.0-RELEASE.war"'
+          rtUpload (
+    serverId: 'artifactory',
+    spec: '''{
+          "files": [
+            {
+              "pattern": "*valaxy*",
+              "target": "valaxy/"
+            }
+         ]
+    }''',
+ 
+)
+
           }
        }
    }
