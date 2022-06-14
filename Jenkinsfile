@@ -74,8 +74,8 @@ pipeline
 
     post {
      always {
-            emailext to: to,
-            subject: subject,
+            emailext to: "shivam.mudotia@nagarro.com",
+            subject: "Test",
             body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
             attachLog: true
      }
