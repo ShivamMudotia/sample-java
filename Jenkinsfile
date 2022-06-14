@@ -21,8 +21,6 @@ def SendEmailNotification(String result) {
 pipeline
 {
 
-try 
-  {
     agent any
     environment {
         PATH = "$PATH:/usr/bin"
@@ -78,5 +76,4 @@ try
     }
    }
 
-}
 
