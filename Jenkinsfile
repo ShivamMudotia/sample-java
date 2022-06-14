@@ -70,14 +70,6 @@ pipeline
          }
        }
 
-
-       stage('post-build') 
-       {
-        steps{
-       SendEmailNotification("SUCCESSFUL")
-        }
-       }
-
     }
 
     post {
@@ -86,12 +78,18 @@ pipeline
      }
      success {
       sh 'echo "This will run only if successful"'
+      currentBuild.result = "BUILD SUCCESSFUL";
+      SendEmailNotification(currentBuild.result)
      }
      failure {
       sh 'echo "This will run only if failed"'
+      currentBuild.result = "BUILD FAILURE";
+      SendEmailNotification(currentBuild.result)
      }
      unstable {
       sh 'echo "This will run only if the run was marked as unstable"'
+      currentBuild.result = "BUILD UNSTABLE";
+      SendEmailNotification(currentBuild.result)
      }
      changed {
       sh 'echo "This will run only if the state of the Pipeline has changed"'
