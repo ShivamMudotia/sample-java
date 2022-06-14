@@ -80,12 +80,3 @@ try
 
 }
 
-catch(e) {
-    // mark build as failed
-    currentBuild.result = "FAILURE";
-   
-    SendEmailNotification(currentBuild.result)
-
-    // mark current build as a failure and throw the error
-    throw e;
-   }
