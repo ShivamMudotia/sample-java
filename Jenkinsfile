@@ -76,7 +76,8 @@ pipeline
      always {
             emailext to: "shivam.mudotia@nagarro.com",
             subject: "Test",
-            body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
+            //body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
+            body: "test",
             attachLog: true
      }
 //      success {
