@@ -18,13 +18,11 @@ def SendEmailNotification(String result) {
     }
 }
 
-
-
 pipeline
 {
 
-try {
-
+try 
+  {
     agent any
     environment {
         PATH = "$PATH:/usr/bin"
@@ -73,8 +71,8 @@ try {
             )
          }
        }
+    }
    }
-}
 
 catch(e) {
     // mark build as failed
@@ -84,6 +82,6 @@ catch(e) {
 
     // mark current build as a failure and throw the error
     throw e;
-}
+   }
 
 }
