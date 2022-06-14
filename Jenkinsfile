@@ -71,8 +71,14 @@ try
             )
          }
        }
+
+       stage('post-build') {
+       SendEmailNotification("SUCCESSFUL")
+       }
     }
    }
+
+}
 
 catch(e) {
     // mark build as failed
@@ -83,5 +89,3 @@ catch(e) {
     // mark current build as a failure and throw the error
     throw e;
    }
-
-}
