@@ -3,7 +3,7 @@ def SendEmailNotification(String result) {
   
     // config 
     def to = emailextrecipients([
-         shivam.mudotia@nagarro.com
+         "shivam.mudotia@nagarro.com"
     ])
     
     // set variables
