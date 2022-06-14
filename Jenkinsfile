@@ -1,27 +1,6 @@
 
-
-
 pipeline
 {
-
-def SendEmailNotification(String result) {
-  
-    // config 
-    def to = emailextrecipients([
-           requestor()
-    ])
-    
-    // set variables
-    def subject = "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} ${result}"
-    def content = '${JELLY_SCRIPT,template="html"}'
-
-    // send email
-    if(to != null && !to.isEmpty()) {
-      emailext(body: content, mimeType: 'text/html',
-         subject: subject,
-         to: to, attachLog: true )
-    }
-}
 
 try {
 
@@ -73,15 +52,27 @@ try {
             )
          }
        }
-
-
    }
-
-
-
-    
 }
 
+def SendEmailNotification(String result) {
+  
+    // config 
+    def to = emailextrecipients([
+           requestor()
+    ])
+    
+    // set variables
+    def subject = "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} ${result}"
+    def content = '${JELLY_SCRIPT,template="html"}'
+
+    // send email
+    if(to != null && !to.isEmpty()) {
+      emailext(body: content, mimeType: 'text/html',
+         subject: subject,
+         to: to, attachLog: true )
+    }
+}
 catch(e) {
     // mark build as failed
     currentBuild.result = "FAILURE";
@@ -91,8 +82,6 @@ catch(e) {
     // mark current build as a failure and throw the error
     throw e;
   }
-
-
 
 
 }
