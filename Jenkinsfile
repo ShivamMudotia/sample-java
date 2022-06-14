@@ -21,8 +21,7 @@ def SendEmailNotification(String result) {
 pipeline
 {
 
-try 
-  {
+
     agent any
     environment {
         PATH = "$PATH:/usr/bin"
@@ -31,7 +30,9 @@ try
     stages
     {
 
-       stage('Build')
+       try 
+      {
+      stage('Build')
        {
             steps
             {
@@ -41,8 +42,10 @@ try
                 }
             }    
        }
+      }
         
-
+       try 
+       {
        stage('SonarQube analysis') 
        {
           steps
@@ -52,8 +55,10 @@ try
               }
           }
        }
+       }
      
-       
+       try 
+       {
        stage('Push Artifacts to Artifactory')
        {
           steps
@@ -72,18 +77,21 @@ try
             )
          }
        }
+       }
 
 
-       stage('post-build') 
+       try 
+       {
+        stage('post-build') 
        {
         steps{
        SendEmailNotification("SUCCESSFUL")
         }
        }
+       }
 
     }
-   
-   }
+
 
 catch(e) {
     // mark build as failed
@@ -96,5 +104,4 @@ catch(e) {
    }
 
 }
-
 
