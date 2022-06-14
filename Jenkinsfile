@@ -12,9 +12,14 @@ def SendEmailNotification(String result) {
 
     // send email
     if(to != null && !to.isEmpty()) {
-      emailext(body: content, mimeType: 'text/html',
-         subject: subject,
-         to: to, attachLog: true )
+   //   emailext(body: content, mimeType: 'text/html',
+   //      subject: subject,
+   //      to: to, attachLog: true )
+            emailext to: to,
+            subject: subject,
+            body: content,
+            attachLog: true
+
     }
 }
 
