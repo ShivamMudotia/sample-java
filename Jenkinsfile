@@ -27,12 +27,12 @@ pipeline
         PATH = "$PATH:/usr/bin"
     }
     
+    try 
+  {
     stages
     {
 
-       try 
-      {
-      stage('Build')
+       stage('Build')
        {
             steps
             {
@@ -42,10 +42,8 @@ pipeline
                 }
             }    
        }
-      }
         
-       try 
-       {
+
        stage('SonarQube analysis') 
        {
           steps
@@ -55,10 +53,8 @@ pipeline
               }
           }
        }
-       }
      
-       try 
-       {
+       
        stage('Push Artifacts to Artifactory')
        {
           steps
@@ -77,20 +73,20 @@ pipeline
             )
          }
        }
-       }
 
 
-       try 
-       {
-        stage('post-build') 
+       stage('post-build') 
        {
         steps{
        SendEmailNotification("SUCCESSFUL")
         }
        }
-       }
 
-       catch(e) {
+    }
+   
+   }
+
+catch(e) {
     // mark build as failed
     currentBuild.result = "FAILURE";
    
@@ -98,10 +94,7 @@ pipeline
 
     // mark current build as a failure and throw the error
     throw e;
-     }
-
-    }
-
+   }
 
 }
 
