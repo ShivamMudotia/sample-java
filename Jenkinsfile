@@ -1,5 +1,5 @@
 
-def SendEmailNotification(String result) {
+//def SendEmailNotification(String result) {
   
     // config 
     def to = emailextrecipients([
@@ -11,17 +11,17 @@ def SendEmailNotification(String result) {
     def content = '${JELLY_SCRIPT,template="html"}'
 
     // send email
-    if(to != null && !to.isEmpty()) {
+   // if(to != null && !to.isEmpty()) {
    //   emailext(body: content, mimeType: 'text/html',
    //      subject: subject,
    //      to: to, attachLog: true )
-            emailext to: to,
-            subject: subject,
-            body: content,
-            attachLog: true
+   //         emailext to: to,
+   //         subject: subject,
+   //         body: content,
+   //         attachLog: true
 
-    }
-}
+    //}
+//}
 
 pipeline
 {
@@ -79,34 +79,35 @@ pipeline
 
     post {
      always {
-      sh 'echo "This will always run"'
+            emailext to: to,
+            subject: subject,
+            body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
+            attachLog: true
      }
      success {
-        script {
-          sh 'echo "This will run only if successful"'
-          currentBuild.result = "BUILD SUCCESSFUL";
-          SendEmailNotification(currentBuild.result)
-        }
+            emailext to: to,
+            subject: subject,
+            body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
+            attachLog: true
      }
-     failure {
-        script {
-          sh 'echo "This will run only if failed"'
-          currentBuild.result = "BUILD FAILURE";
-          SendEmailNotification(currentBuild.result)
+
+    failure{
+            emailext to: to,
+            subject: subject,
+            body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
+            attachLog: true
         }
      }
      unstable {
-        script {
-          sh 'echo "This will run only if the run was marked as unstable"'
-          currentBuild.result = "BUILD UNSTABLE";
-          SendEmailNotification(currentBuild.result)
-        }
+            emailext to: to,
+            subject: subject,
+            body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
+            attachLog: true
      }
-     changed {
-      sh 'echo "This will run only if the state of the Pipeline has changed"'
-      sh 'echo "For example, the Pipeline was previously failing but is now successful"'
-      sh 'echo "... or the other way around :)"'
-     }
-   
+    changed{
+            emailext to: to,
+            subject: subject,
+            body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
+            attachLog: true
  }
 }
