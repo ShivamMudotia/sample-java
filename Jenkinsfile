@@ -4,6 +4,25 @@
 pipeline
 {
 
+def SendEmailNotification(String result) {
+  
+    // config 
+    def to = emailextrecipients([
+           requestor()
+    ])
+    
+    // set variables
+    def subject = "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} ${result}"
+    def content = '${JELLY_SCRIPT,template="html"}'
+
+    // send email
+    if(to != null && !to.isEmpty()) {
+      emailext(body: content, mimeType: 'text/html',
+         subject: subject,
+         to: to, attachLog: true )
+    }
+}
+
 try {
 
     agent any
@@ -74,23 +93,6 @@ catch(e) {
   }
 
 
-def SendEmailNotification(String result) {
-  
-    // config 
-    def to = emailextrecipients([
-           requestor()
-    ])
-    
-    // set variables
-    def subject = "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} ${result}"
-    def content = '${JELLY_SCRIPT,template="html"}'
 
-    // send email
-    if(to != null && !to.isEmpty()) {
-      emailext(body: content, mimeType: 'text/html',
-         subject: subject,
-         to: to, attachLog: true )
-    }
-}
 
 }
