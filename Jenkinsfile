@@ -76,10 +76,10 @@ pipeline
      always {
             emailext 
             //to: "shivam.mudotia@nagarro.com",
-            subject: "Test",
+            subject: 'Test',
             recipientProviders: [$class: 'DevelopersRecipientProvider']
             //body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
-            body: "test",
+            body: 'test',
             attachLog: true
      }
 //      success {
