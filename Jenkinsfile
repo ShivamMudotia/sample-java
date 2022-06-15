@@ -72,22 +72,43 @@ pipeline
 
     }
 
-    post {
-     always {
-            // emailext to: "shivam.mudotia@nagarro.com",
-            // subject: "Test",
-            // //body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
-            // body: "test",
-            // attachLog: true
-            // step([$class: 'Mailer',
-            // notifyEveryUnstableBuild: true,
-            // recipients: 'shivam.mudotia@nagarro.com',
-            // sendToIndividuals: true])
+environment {
+        EMAIL_TO = 'shivam.mudotia@nagarro.com'
+    }
+post {
+        failure {
+            emailext body: 'Check console output at $BUILD_URL to view the results. \n\n ${CHANGES} \n\n -------------------------------------------------- \n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
+                    to: "${EMAIL_TO}", 
+                    subject: 'Build failed in Jenkins: $PROJECT_NAME - #$BUILD_NUMBER'
+        }
+        unstable {
+            emailext body: 'Check console output at $BUILD_URL to view the results. \n\n ${CHANGES} \n\n -------------------------------------------------- \n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
+                    to: "${EMAIL_TO}", 
+                    subject: 'Unstable build in Jenkins: $PROJECT_NAME - #$BUILD_NUMBER'
+        }
+        changed {
+            emailext body: 'Check console output at $BUILD_URL to view the results.', 
+                    to: "${EMAIL_TO}", 
+                    subject: 'Jenkins build is back to normal: $PROJECT_NAME - #$BUILD_NUMBER'
+        }
+    }
 
-             mail to: 'team@example.com',
-             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-             body: "Something is wrong with ${env.BUILD_URL}"
-     }
+    // post {
+    //  always {
+    //         // emailext to: "shivam.mudotia@nagarro.com",
+    //         // subject: "Test",
+    //         // //body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
+    //         // body: "test",
+    //         // attachLog: true
+    //         // step([$class: 'Mailer',
+    //         // notifyEveryUnstableBuild: true,
+    //         // recipients: 'shivam.mudotia@nagarro.com',
+    //         // sendToIndividuals: true])
+
+    //          mail to: 'team@example.com',
+    //          subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+    //          body: "Something is wrong with ${env.BUILD_URL}"
+    //  }
 //      success {
 //             emailext to: to,
 //             subject: subject,
@@ -113,5 +134,5 @@ pipeline
 //             body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
 //             attachLog: true
 //  }
-}
+// }
 }
