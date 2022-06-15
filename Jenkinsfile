@@ -79,10 +79,14 @@ pipeline
             // //body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
             // body: "test",
             // attachLog: true
-            step([$class: 'Mailer',
-            notifyEveryUnstableBuild: true,
-            recipients: 'shivam.mudotia@nagarro.com',
-            sendToIndividuals: true])
+            // step([$class: 'Mailer',
+            // notifyEveryUnstableBuild: true,
+            // recipients: 'shivam.mudotia@nagarro.com',
+            // sendToIndividuals: true])
+
+             mail to: 'team@example.com',
+             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+             body: "Something is wrong with ${env.BUILD_URL}"
      }
 //      success {
 //             emailext to: to,
