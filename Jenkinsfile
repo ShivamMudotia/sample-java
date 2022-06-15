@@ -81,7 +81,7 @@ pipeline
             // attachLog: true
             step([$class: 'Mailer',
             notifyEveryUnstableBuild: true,
-            recipients: to,
+            recipients: 'shivam.mudotia@nagarro.com',
             sendToIndividuals: true])
      }
 //      success {
