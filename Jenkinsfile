@@ -2,13 +2,13 @@
 //def SendEmailNotification(String result) {
   
     // config 
-    def to = emailextrecipients([
+//    def to = emailextrecipients([
          "shivam.mudotia@nagarro.com"
     ])
     
     // set variables
-    def subject = "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} ${result}"
-    def content = '${JELLY_SCRIPT,template="html"}'
+  //  def subject = "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} ${result}"
+   // def content = '${JELLY_SCRIPT,template="html"}'
 
     // send email
    // if(to != null && !to.isEmpty()) {
