@@ -71,69 +71,15 @@ pipeline
          }
        }
 
-}
-
-
-    //    post 
-    //    {
-    //         always {
-    //           mail body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}", cc: "shivam.mudotia@nagarro.com", to: "shivam.mudotia@nagarro.com", subject: "Test", attachLog: true
-    //         }
-    //    }
+    }
     
-    
-post {
+    post {
        always {
            emailext body: 'Check console output at $BUILD_URL to view the results. \n\n ${CHANGES} \n\n -------------------------------------------------- \n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
            to: "${EMAIL_TO}", 
-           subject: 'Build failed in Jenkins: $PROJECT_NAME - #$BUILD_NUMBER',
+           subject: '${currentBuild.currentResult} : $PROJECT_NAME - #$BUILD_NUMBER',
            attachLog: true
        }
     }
-
-   // }
-
-    // post {
-    //  always {
-    //         // emailext to: "shivam.mudotia@nagarro.com",
-    //         // subject: "Test",
-    //         // //body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
-    //         // body: "test",
-    //         // attachLog: true
-    //         // step([$class: 'Mailer',
-    //         // notifyEveryUnstableBuild: true,
-    //         // recipients: 'shivam.mudotia@nagarro.com',
-    //         // sendToIndividuals: true])
-
-    //          mail to: 'team@example.com',
-    //          subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-    //          body: "Something is wrong with ${env.BUILD_URL}"
-    //  }
-//      success {
-//             emailext to: to,
-//             subject: subject,
-//             body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
-//             attachLog: true
-//      }
-
-//     failure{
-//             emailext to: to,
-//             subject: subject,
-//             body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
-//             attachLog: true
-//         }
-//      unstable {
-//             emailext to: to,
-//             subject: subject,
-//             body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
-//             attachLog: true
-//      }
-//     changed{
-//             emailext to: to,
-//             subject: subject,
-//             body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
-//             attachLog: true
-//  }
-// }
 
 }
