@@ -1,10 +1,10 @@
 def SendEmailNotification(String result) {
   
     //config 
-    def to = emailextrecipients([
-         "shivam.mudotia@nagarro.com;nagender.singh@nagarro.com"
-    ])
-    
+    // def to = emailextrecipients([
+    //      "shivam.mudotia@nagarro.com;nagender.singh@nagarro.com"
+    // ])
+    def to = "shivam.mudotia@nagarro.com;nagender.singh@nagarro.com"
     // set variables
     def subject = "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} ${result}"
     def content = '${JELLY_SCRIPT,template="html"}'
