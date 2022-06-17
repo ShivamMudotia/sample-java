@@ -75,7 +75,7 @@ pipeline
     
     post {
        always {
-           emailext body: 'Check console output at $BUILD_URL to view the results. \n\n CHANGES \n\n ${CHANGES} \n\n -------------------------------------------------- \n\n BUILD LOGS \n\n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
+           emailext body: 'Check detailed console output at below URL. \n $BUILD_URL \n\n Code Commits \n\n ${CHANGES} \n\n -------------------------------------------------- \n\n Build Logs (Truncated) - Full Logs Attached \n\n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
            to: "${email_to}", 
            subject: '$BUILD_STATUS : $PROJECT_NAME - #$BUILD_NUMBER',
            attachLog: true
