@@ -4,10 +4,10 @@ def SendEmailNotification(String result) {
     // def to = emailextrecipients([
     //      "shivam.mudotia@nagarro.com;nagender.singh@nagarro.com"
     // ])
-    def to = "shivam.mudotia@nagarro.com;nagender.singh@nagarro.com"
+    //def to = "shivam.mudotia@nagarro.com;nagender.singh@nagarro.com"
     // set variables
-    def subject = "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} ${result}"
-    def content = '${JELLY_SCRIPT,template="html"}'
+    // def subject = "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} ${result}"
+    /def content = '${JELLY_SCRIPT,template="html"}'
 
     // send email
     if(to != null && !to.isEmpty()) {
@@ -22,6 +22,7 @@ pipeline
     agent any
     environment {
         PATH = "$PATH:/usr/bin"
+        email_to = "shivam.mudotia@nagarro.com;nagender.singh@nagarro.com"
     }
     
     stages
@@ -74,7 +75,7 @@ pipeline
     post {
        always {
            emailext body: 'Check console output at $BUILD_URL to view the results. \n\n ${CHANGES} \n\n -------------------------------------------------- \n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
-           to: "${to}", 
+           to: "${email_to}", 
            subject: '$BUILD_STATUS : $PROJECT_NAME - #$BUILD_NUMBER',
            attachLog: true
        }
