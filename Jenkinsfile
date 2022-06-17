@@ -7,11 +7,11 @@ def SendEmailNotification(String result) {
     //def to = "shivam.mudotia@nagarro.com;nagender.singh@nagarro.com"
     // set variables
     // def subject = "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} ${result}"
-    def content = '${JELLY_SCRIPT,template="html"}'
+    // def content = '${JELLY_SCRIPT,template="html"}'
 
     // send email
     if(to != null && !to.isEmpty()) {
-      emailext(body: content, mimeType: 'text/html',
+      emailext(body: body, mimeType: 'text/html',
          subject: subject,
          to: to, attachLog: true )
     }
@@ -22,7 +22,8 @@ pipeline
     agent any
     environment {
         PATH = "$PATH:/usr/bin"
-        email_to = "shivam.mudotia@nagarro.com;nagender.singh@nagarro.com"
+        //email_to = "shivam.mudotia@nagarro.com;nagender.singh@nagarro.com"
+        email_to = "shivam.mudotia@nagarro.com"
     }
     
     stages
