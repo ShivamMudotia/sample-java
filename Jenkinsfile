@@ -1,22 +1,22 @@
 
-//def SendEmailNotification(String result) {
+def SendEmailNotification(String result) {
   
-    // config 
-//    def to = emailextrecipients([
+    //config 
+    def to = emailextrecipients([
          "shivam.mudotia@nagarro.com"
-//    ])
+    ])
     
-//    // set variables
-  //  def subject = "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} ${result}"
-   // def content = '${JELLY_SCRIPT,template="html"}'
+    // set variables
+    def subject = "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} ${result}"
+    def content = '${JELLY_SCRIPT,template="html"}'
 
     // send email
-   // if(to != null && !to.isEmpty()) {
-   //   emailext(body: content, mimeType: 'text/html',
-   //      subject: subject,
-   //      to: to, attachLog: true )
-    //}
-//}
+    if(to != null && !to.isEmpty()) {
+      emailext(body: content, mimeType: 'text/html',
+         subject: subject,
+         to: to, attachLog: true )
+    }
+}
 
 pipeline
 {
@@ -71,23 +71,25 @@ pipeline
          }
        }
 
-       post 
-       {
-            always {
-              mail body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}", cc: "shivam.mudotia@nagarro.com", to: "shivam.mudotia@nagarro.com", subject: "Test", attachLog: true
-            }
-       }
-    }
-
 }
 
-//post {
-  //      always {
-    //        emailext body: 'Check console output at $BUILD_URL to view the results. \n\n ${CHANGES} \n\n -------------------------------------------------- \n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
-      //      to: "${EMAIL_TO}", 
-      //      recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
-      //      subject: 'Build failed in Jenkins: $PROJECT_NAME - #$BUILD_NUMBER'
-      //  }
+
+    //    post 
+    //    {
+    //         always {
+    //           mail body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}", cc: "shivam.mudotia@nagarro.com", to: "shivam.mudotia@nagarro.com", subject: "Test", attachLog: true
+    //         }
+    //    }
+    
+    
+post {
+       always {
+           emailext body: 'Check console output at $BUILD_URL to view the results. \n\n ${CHANGES} \n\n -------------------------------------------------- \n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
+           to: "${EMAIL_TO}", 
+           subject: 'Build failed in Jenkins: $PROJECT_NAME - #$BUILD_NUMBER',
+           attachLog: ${attachLog}
+       }
+    }
 
    // }
 
@@ -134,3 +136,4 @@ pipeline
 //  }
 // }
 
+}
