@@ -71,14 +71,13 @@ pipeline
          }
        }
 
+       post 
+       {
+            always {
+              mail body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}", cc: "shivam.mudotia@nagarro.com", to: "shivam.mudotia@nagarro.com", subject: "Test", attachLog: true
+            }
+       }
     }
-
-post {
-always {
-
-mail body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}", cc: "shivam.mudotia@nagarro.com", to: "shivam.mudotia@nagarro.com"
-error "Pipeline failed at ${env.STAGE_NAME}" , subject: "Test", attachLog: true , 
-}
 
 }
 
@@ -134,4 +133,4 @@ error "Pipeline failed at ${env.STAGE_NAME}" , subject: "Test", attachLog: true 
 //             attachLog: true
 //  }
 // }
-}
+
