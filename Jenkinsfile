@@ -22,7 +22,6 @@ pipeline
     agent any
     environment {
         PATH = "$PATH:/usr/bin"
-        EMAIL_TO = 'shivam.mudotia@nagarro.com'
     }
     
     stages
@@ -75,7 +74,7 @@ pipeline
     post {
        always {
            emailext body: 'Check console output at $BUILD_URL to view the results. \n\n ${CHANGES} \n\n -------------------------------------------------- \n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
-           to: "${EMAIL_TO}", 
+           to: "${to}", 
            subject: '$BUILD_STATUS : $PROJECT_NAME - #$BUILD_NUMBER',
            attachLog: true
        }
