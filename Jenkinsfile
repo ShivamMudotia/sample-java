@@ -7,7 +7,7 @@ def SendEmailNotification(String result) {
     //def to = "shivam.mudotia@nagarro.com;nagender.singh@nagarro.com"
     // set variables
     // def subject = "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} ${result}"
-    /def content = '${JELLY_SCRIPT,template="html"}'
+    def content = '${JELLY_SCRIPT,template="html"}'
 
     // send email
     if(to != null && !to.isEmpty()) {
