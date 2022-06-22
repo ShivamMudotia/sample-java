@@ -77,6 +77,12 @@ pipeline
                {
                 script 
                   {
+                   def server = Artifactory.server artifactory
+                   //def buildInfo = Artifactory.newBuildInfo()
+                   //buildInfo.env.capture = true
+                   //buildInfo.env.collect()
+                   //buildInfo=server.upload(uploadSpec)
+                   //server.publishBuildInfo(buildInfo)
                    server.publishBuildInfo buildInfo
                   }
                }
