@@ -68,7 +68,7 @@ pipeline
                }''',
  
             )
-         
+        }     
 
         stage ('Publish build info') 
         {
@@ -79,8 +79,6 @@ pipeline
         }
 
            
-       }
-
     }
     
     post {
