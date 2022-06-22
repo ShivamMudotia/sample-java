@@ -75,7 +75,7 @@ pipeline
            steps 
            {
               rtPublishBuildInfo (
-                 serverId: 'Artifactory'
+                 serverId: 'artifactory'
               )
            }
         }
