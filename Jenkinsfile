@@ -70,25 +70,20 @@ pipeline
                  }''',
               )
             }
+         
            step
             {
-              script
-                  {
-                   def server = Artifactory.server 'artifactory'
-                   def buildInfo = Artifactory.newBuildInfo()
-                   buildInfo.env.capture = true
-                   ildInfo.env.collect()
-                   buildInfo=server.upload(uploadSpec)
-                   server.publishBuildInfo(buildInfo)
-                   //server.publishBuildInfo buildInfo
-                  } 
-            }
-        }     
-       }
+            rtPublishBuildInfo (
+              serverId: 'Artifactory'
+               )
+           }
+         
+         }
+        } 
+            
+     }
 
     
-    }
-
     post {
        always {
            emailext body: 'Check detailed console output at below URL. \n $BUILD_URL \n\n Code Commits \n\n ${CHANGES} \n\n -------------------------------------------------- \n\n Build Logs (Truncated) - Full Logs Attached \n\n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
