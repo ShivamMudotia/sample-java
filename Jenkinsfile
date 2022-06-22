@@ -75,7 +75,10 @@ pipeline
         {
             steps 
                {
-                 server.publishBuildInfo buildInfo
+                script 
+                  {
+                   server.publishBuildInfo buildInfo
+                  }
                }
         }
 
