@@ -1,15 +1,7 @@
+
+
 def SendEmailNotification(String result) {
   
-    //config 
-    // def to = emailextrecipients([
-    //      "shivam.mudotia@nagarro.com;nagender.singh@nagarro.com"
-    // ])
-    //def to = "shivam.mudotia@nagarro.com;nagender.singh@nagarro.com"
-    // set variables
-    // def subject = "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} ${result}"
-    // def content = '${JELLY_SCRIPT,template="html"}'
-
-    // send email
     if(to != null && !to.isEmpty()) {
       emailext(body: body, mimeType: 'text/html',
          subject: subject,
@@ -22,7 +14,6 @@ pipeline
     agent any
     environment {
         PATH = "$PATH:/usr/bin"
-        //email_to = "shivam.mudotia@nagarro.com;nagender.singh@nagarro.com"
         email_to = "shivam.mudotia@nagarro.com"
     }
     
@@ -51,13 +42,20 @@ pipeline
           }
        }
      
-       
+       stage ('Set build retention') 
+       {
+         steps {
+            rtBuildInfo (
+                maxBuilds: 10
+            )
+          }   
+       }
+
        stage('Push Artifacts to Artifactory')
        {
           steps
           {
-            step 
-             {
+
               rtUpload (
                  serverId: 'artifactory',
                  spec: '''{
@@ -70,19 +68,20 @@ pipeline
                  }''',
               )
             }
-         
-           step
-            {
-            rtPublishBuildInfo (
-              serverId: 'artifactory'
-               )
+       }  
+       
+       stage ('Publish build info') 
+       {
+           steps 
+           {
+              rtPublishBuildInfo (
+                 serverId: 'Artifactory'
+              )
            }
+        }
          
-         }
-        } 
-            
-     }
-
+    }
+    
     
     post {
        always {
@@ -94,3 +93,4 @@ pipeline
     }
 
 }
+
