@@ -41,15 +41,17 @@ pipeline
               }
           }
        }
-     
-       stage ('Set build retention') 
-       {
-         steps {
-            rtBuildInfo (
-                maxBuilds: 10
-            )
-          }   
-       }
+
+    // This is only available with Artifactory Commercial License 
+    //    stage ('Set build retention') 
+    //    {
+    //      steps {
+    //         rtBuildInfo (
+    //             maxBuilds: 10
+    //         )
+    //       }   
+    //    }
+    
 
        stage('Push Artifacts to Artifactory')
        {
