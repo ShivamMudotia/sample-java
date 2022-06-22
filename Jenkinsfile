@@ -68,13 +68,9 @@ pipeline
                }''',
  
             )
+           server.publishBuildInfo buildInfo
          }
            
-      
-       stage ('Publish build info') 
-        {
-           server.publishBuildInfo buildInfo
-        }
        }
 
     }
