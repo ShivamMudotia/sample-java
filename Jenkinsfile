@@ -56,39 +56,39 @@ pipeline
        {
           steps
           {
-            rtUpload (
-               serverId: 'artifactory',
-               spec: '''{
-                  "files": [
+            step 
+             {
+              rtUpload (
+                 serverId: 'artifactory',
+                 spec: '''{
+                    "files": [
+                    {
+                      "pattern": "*.war",
+                      "target": "app1/sonar-artifactory-sample-1/"
+                    }
+                   ]
+                 }''',
+              )
+            }
+           step
+            {
+              script
                   {
-                    "pattern": "*.war",
-                    "target": "app1/sonar-artifactory-sample-1/"
-                  }
-                 ]
-               }''',
- 
-            )
+                   def server = Artifactory.server 'artifactory'
+                   def buildInfo = Artifactory.newBuildInfo()
+                   buildInfo.env.capture = true
+                   ildInfo.env.collect()
+                   buildInfo=server.upload(uploadSpec)
+                   server.publishBuildInfo(buildInfo)
+                   //server.publishBuildInfo buildInfo
+                  } 
+            }
         }     
        }
 
-        stage ('Publish build info') 
-        {
-            steps 
-               {
-                script 
-                  {
-                   def server = Artifactory.server artifactory
-                   //def buildInfo = Artifactory.newBuildInfo()
-                   //buildInfo.env.capture = true
-                   //buildInfo.env.collect()
-                   //buildInfo=server.upload(uploadSpec)
-                   //server.publishBuildInfo(buildInfo)
-                   server.publishBuildInfo buildInfo
-                  }
-               }
-        }
+    
+    }
 
-           
     }
     
     post {
