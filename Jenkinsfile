@@ -89,8 +89,6 @@ pipeline
     
     }
 
-    }
-    
     post {
        always {
            emailext body: 'Check detailed console output at below URL. \n $BUILD_URL \n\n Code Commits \n\n ${CHANGES} \n\n -------------------------------------------------- \n\n Build Logs (Truncated) - Full Logs Attached \n\n${BUILD_LOG, maxLines=100, escapeHtml=false}', 
