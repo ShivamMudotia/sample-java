@@ -62,7 +62,7 @@ pipeline
                   "files": [
                   {
                     "pattern": "*.war",
-                    "target": "app-1/"
+                    "target": "app1/"
                   }
                  ]
                }''',
