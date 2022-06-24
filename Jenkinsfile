@@ -41,21 +41,22 @@ pipeline
               script {
                   timeout(time: 5, unit: 'MINUTES') {
                       def qualitygate = waitForQualityGate()
-                      if (qualitygate.status = "ERROR") {
-                         error "Pipeline aborted due to Quality Gate Failure."
-                         }
-                      else {
+                      if (qualitygate.status = "IN_PROGRESS") {
                          timeout(time: 5, unit: 'MINUTES') {
                          def qualitygate = waitForQualityGate()
+                             if (qualitygate.status != "OK") {
+                                 error "Pipeline aborted due to Quality Gate Failure."
+                                 }
+                            }
+                      }
+                      else {
                          if (qualitygate.status != "OK") {
                              error "Pipeline aborted due to Quality Gate Failure."
                              }
-                      }
-
-                      }
-
+                         }
                   }
               }
+          }
        }
 
     // This is only available with Artifactory Commercial License 
