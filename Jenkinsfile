@@ -43,17 +43,15 @@ pipeline
                       def qualitygate = waitForQualityGate()
                       if (qualitygate.status = "IN_PROGRESS") {
                          timeout(time: 5, unit: 'MINUTES') {
-                         def qualitygate = waitForQualityGate()
-                             if (qualitygate.status != "OK") {
+                         def qualitygate2 = waitForQualityGate()
+                             if (qualitygate2.status != "OK") {
                                  error "Pipeline aborted due to Quality Gate Failure."
                                  }
                             }
                       }
-                      else {
-                         if (qualitygate.status != "OK") {
-                             error "Pipeline aborted due to Quality Gate Failure."
-                             }
-                         }
+                      else if (qualitygate.status != "OK") {
+                        error "Pipeline aborted due to Quality Gate Failure."
+                        }
                   }
               }
           }
