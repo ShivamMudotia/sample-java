@@ -39,6 +39,7 @@ pipeline
               sh "mvn sonar:sonar"
               }
               script {
+                    sleep(10)
                   //timeout(time: 10, unit: 'MINUTES') {
                       def qualitygate = waitForQualityGate()
                       if (qualitygate.status != "OK") {
