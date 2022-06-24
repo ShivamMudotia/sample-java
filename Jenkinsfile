@@ -41,7 +41,7 @@ pipeline
               script {
                   timeout(time: 5, unit: 'MINUTES') {
                       def qualitygate = waitForQualityGate()
-                      if (qualitygate.status = "IN_PROGRESS") {
+                      if (qualitygate.status == "IN_PROGRESS") {
                          timeout(time: 5, unit: 'MINUTES') {
                          def qualitygate2 = waitForQualityGate()
                              if (qualitygate2.status != "OK") {
@@ -54,7 +54,7 @@ pipeline
                         }
                   }
               }
-          }
+          }        
        }
 
     // This is only available with Artifactory Commercial License 
