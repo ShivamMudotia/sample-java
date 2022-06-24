@@ -39,22 +39,14 @@ pipeline
               sh "mvn sonar:sonar"
               }
               script {
-                  timeout(time: 5, unit: 'MINUTES') {
+                  timeout(time: 10, unit: 'MINUTES') {
                       def qualitygate = waitForQualityGate()
-                      if (qualitygate.status == "IN_PROGRESS") {
-                         timeout(time: 5, unit: 'MINUTES') {
-                         def qualitygate2 = waitForQualityGate()
-                             if (qualitygate2.status != "OK") {
-                                 error "Pipeline aborted due to Quality Gate Failure."
-                                 }
-                            }
+                      if (qualitygate.status != "OK") {
+                         error "Pipeline aborted due to Quality Gate Failure."
+                         }
                       }
-                      else if (qualitygate.status != "OK") {
-                        error "Pipeline aborted due to Quality Gate Failure."
-                        }
                   }
               }
-          }        
        }
 
     // This is only available with Artifactory Commercial License 
