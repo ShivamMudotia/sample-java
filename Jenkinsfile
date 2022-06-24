@@ -34,19 +34,19 @@ pipeline
 
        stage('SonarQube analysis') 
        {
-          steps
-          {
+          steps{
               withSonarQubeEnv('sonarqube') { 
               sh "mvn sonar:sonar"
               }
-              
-              timeout(time: 3, unit: 'MINUTES') {
-              def qualitygate = waitForQualityGate()
-              if (qualitygate.status != "OK") {
-                 error "Pipeline aborted due to quality gate coverage failure."
-                 }
+              script {
+                  timeout(time: 3, unit: 'MINUTES') {
+                      def qualitygate = waitForQualityGate()
+                      if (qualitygate.status != "OK") {
+                         error "Pipeline aborted due to quality gate coverage failure."
+                         }
+                      }
+                  }
               }
-          }
        }
 
     // This is only available with Artifactory Commercial License 
