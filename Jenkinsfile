@@ -41,10 +41,19 @@ pipeline
               script {
                   timeout(time: 5, unit: 'MINUTES') {
                       def qualitygate = waitForQualityGate()
-                      if (qualitygate.status != "OK") {
+                      if (qualitygate.status = "ERROR") {
                          error "Pipeline aborted due to Quality Gate Failure."
                          }
+                      else {
+                         timeout(time: 5, unit: 'MINUTES') {
+                         def qualitygate = waitForQualityGate()
+                         if (qualitygate.status != "OK") {
+                             error "Pipeline aborted due to Quality Gate Failure."
+                             }
                       }
+
+                      }
+
                   }
               }
        }
